@@ -1,48 +1,20 @@
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://docs.scrapy.org/en/latest/topics/items.html
-
 import scrapy
 
 class EventItem(scrapy.Item):
     # Informações básicas do evento
-    name = scrapy.Field()
-    event_id = scrapy.Field()
-    event_type = scrapy.Field()
-    company = scrapy.Field()
-    url = scrapy.Field()
-
-    # Datas do evento
-    start_date = scrapy.Field()
-    end_date = scrapy.Field()
-    start_date_formats = scrapy.Field()
-    end_date_formats = scrapy.Field()
-
-    # Localização do evento
-    location_name = scrapy.Field()
-    address = scrapy.Field()
-    address_num = scrapy.Field()
-    neighborhood = scrapy.Field()
-    city = scrapy.Field()
-    state = scrapy.Field()
-    zip_code = scrapy.Field()
-    country = scrapy.Field()
-    latitude = scrapy.Field()
-    longitude = scrapy.Field()
-
-    # Organizador do evento
-    organizer_name = scrapy.Field()
-    organizer_id = scrapy.Field()
-    organizer_email = scrapy.Field()
-    organizer_range = scrapy.Field()
-    organizer_range_id = scrapy.Field()
-
-    # Imagens do evento
-    image_original = scrapy.Field()
-    image_xs = scrapy.Field()
-    image_lg = scrapy.Field()
-
-    # Outros campos
-    global_score_norm = scrapy.Field()
-    duration_type = scrapy.Field()
+    title = scrapy.Field()  # Nome do evento
+    event_id = scrapy.Field()  # ID único do evento
+    event_type = scrapy.Field()  # Tipo de evento (ex: show, festival, etc.)
+    url = scrapy.Field()  # URL do evento
+    start_date = scrapy.Field()  # Data de início do evento
+    end_date = scrapy.Field()  # Data de término do evento
+    place_name = scrapy.Field()  # Nome do local do evento
+    address = scrapy.Field()  # Endereço do local
+    city = scrapy.Field()  # Cidade do evento
+    state = scrapy.Field()  # Estado do evento
+    image_url = scrapy.Field()  # URL da imagem principal do evento
+    image_thumb_url = scrapy.Field()  # URL da miniatura da imagem
+    synopsis = scrapy.Field()  # Sinopse ou descrição do evento
+    duration = scrapy.Field()  # Duração do evento
+    purchase_url = scrapy.Field()  # URL para compra de ingressos
+    source = scrapy.Field()  # Fonte dos dados (ex: "sympla")
