@@ -1,15 +1,10 @@
-import mysql.connector
-from mysql.connector import Error
+import sqlite3
 
 def get_db_connection():
     try:
-        conn = mysql.connector.connect(
-            host="localhost",
-            user="wilck",
-            password="3696",
-            database="projeto_integrador"
-        )
+        # Conecta ao banco de dados SQLite (ou cria se não existir)
+        conn = sqlite3.connect('projeto_integrador.db')
         return conn
-    except Error as e:
+    except sqlite3.Error as e:
         print(f"Erro ao conectar ao banco de dados: {e}")
         return None

@@ -2,7 +2,7 @@ import scrapy
 from event_crawler.ticketmaster_items import EventItem
 import json
 import logging
-from event_crawler.database import connect_to_db, insert_event
+from event_crawler.database import connect_to_db, create_table, insert_event
 
 class TicketmasterSpider(scrapy.Spider):
     name = "ticketmaster_spider"
@@ -16,6 +16,7 @@ class TicketmasterSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         super(TicketmasterSpider, self).__init__(*args, **kwargs)
         self.conn = connect_to_db()
+        create_table(self.conn)
 
     def close(self, reason):
         self.conn.close()
