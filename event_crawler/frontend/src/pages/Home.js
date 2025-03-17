@@ -4,6 +4,8 @@ import EventCard from '../components/EventCard';
 import FilterForm from '../components/FilterForm';
 import './Home.css';
 
+const API_URL = "https://event-search-iqm2.onrender.com";
+
 const Home = () => {
     const [events, setEvents] = useState([]);
     const [filters, setFilters] = useState({});
@@ -12,7 +14,7 @@ const Home = () => {
 
     const fetchEvents = async (filters = {}, page = 1, limit = itemsPerPage) => {
         try {
-            const response = await axios.get('http://localhost:5000/events', {
+            const response = await axios.get(`${API_URL}/events`, {
                 params: {
                     ...filters,
                     page,
