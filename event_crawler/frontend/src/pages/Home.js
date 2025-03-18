@@ -25,6 +25,7 @@ const Home = () => {
                     limit,
                 },
             });
+            console.log("Eventos recebidos:", response.data.events); // Depuração
             setEvents(response.data.events);
             setTotalPages(response.data.pagination.total_pages);
             setError(null);
@@ -41,6 +42,7 @@ const Home = () => {
     }, [currentPage, itemsPerPage, filters]);
 
     const handleFilter = (filters) => {
+        console.log("Filtros enviados:", filters); // Depuração
         setFilters(filters);
         setCurrentPage(1);
         fetchEvents(filters, 1, itemsPerPage);
@@ -48,6 +50,7 @@ const Home = () => {
 
     const handleItemsPerPageChange = (event) => {
         const newItemsPerPage = parseInt(event.target.value, 10);
+        console.log("Novos itens por página:", newItemsPerPage); // Depuração
         setItemsPerPage(newItemsPerPage);
         setCurrentPage(1);
         fetchEvents(filters, 1, newItemsPerPage);

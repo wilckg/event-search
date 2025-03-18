@@ -23,14 +23,14 @@ def get_events():
     params = []
 
     if 'city' in filters:
-        query += " AND city = %s"
-        params.append(filters['city'])
+        query += " AND city LIKE %s"
+        params.append(f"%{filters['city']}%")  # Adiciona % para busca parcial
     if 'state' in filters:
-        query += " AND state = %s"
-        params.append(filters['state'])
+        query += " AND state LIKE %s"
+        params.append(f"%{filters['state']}%")  # Adiciona % para busca parcial
     if 'source' in filters:
-        query += " AND source = %s"
-        params.append(filters['source'])
+        query += " AND source LIKE %s"
+        params.append(f"%{filters['source']}%")  # Adiciona % para busca parcial
     if 'start_date' in filters:
         query += " AND start_date >= %s"
         params.append(filters['start_date'])
@@ -52,14 +52,14 @@ def get_events():
     count_params = []
 
     if 'city' in filters:
-        count_query += " AND city = %s"
-        count_params.append(filters['city'])
+        count_query += " AND city LIKE %s"
+        count_params.append(f"%{filters['city']}%")  # Adiciona % para busca parcial
     if 'state' in filters:
-        count_query += " AND state = %s"
-        count_params.append(filters['state'])
+        count_query += " AND state LIKE %s"
+        count_params.append(f"%{filters['state']}%")  # Adiciona % para busca parcial
     if 'source' in filters:
-        count_query += " AND source = %s"
-        count_params.append(filters['source'])
+        count_query += " AND source LIKE %s"
+        count_params.append(f"%{filters['source']}%")  # Adiciona % para busca parcial
     if 'start_date' in filters:
         count_query += " AND start_date >= %s"
         count_params.append(filters['start_date'])
