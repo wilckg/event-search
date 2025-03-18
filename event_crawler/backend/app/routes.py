@@ -43,6 +43,8 @@ def get_events():
     query += " LIMIT %s OFFSET %s"
     params.extend([per_page, offset])
 
+    print("Essa é a query executada: ", query)
+
     cursor = conn.cursor()
     cursor.execute(query, params)
     events_data = cursor.fetchall()
