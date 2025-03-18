@@ -27,7 +27,7 @@ def get_events():
 
     # Contar o total de eventos (para calcular o total de páginas)
     cursor.execute("SELECT COUNT(*) as total FROM events")
-    total_events = cursor.fetchone()[0]
+    total_events = cursor.fetchone()['total']
 
     cursor.close()
     conn.close()
@@ -35,24 +35,24 @@ def get_events():
     # Converter os dados em objetos Event
     events = [
         Event(
-            id=event[0],
-            title=event[1],
-            event_id=event[2],
-            event_type=event[3],
-            url=event[4],
-            start_date=event[5],
-            end_date=event[6],
-            place_name=event[7],
-            address=event[8],
-            city=event[9],
-            state=event[10],
-            country=event[11],
-            image_url=event[12],
-            image_thumb_url=event[13],
-            synopsis=event[14],
-            duration=event[15],
-            purchase_url=event[16],
-            source=event[17]
+            id=event['id'],
+            title=event['title'],
+            event_id=event['event_id'],
+            event_type=event['event_type'],
+            url=event['url'],
+            start_date=event['start_date'],
+            end_date=event['end_date'],
+            place_name=event['place_name'],
+            address=event['address'],
+            city=event['city'],
+            state=event['state'],
+            country=event.get('country', ''),  # Use .get() para campos opcionais
+            image_url=event['image_url'],
+            image_thumb_url=event['image_thumb_url'],
+            synopsis=event['synopsis'],
+            duration=event['duration'],
+            purchase_url=event['purchase_url'],
+            source=event['source']
         ) for event in events_data
     ]
 
