@@ -18,7 +18,7 @@ def get_events():
     page = int(request.args.get('page', 1))  # Página atual (padrão: 1)
     per_page = int(request.args.get('per_page', 10))  # Itens por página (padrão: 10)
 
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
 
     # Consulta SQL com paginação
     offset = (page - 1) * per_page

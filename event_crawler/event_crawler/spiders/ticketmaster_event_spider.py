@@ -31,7 +31,7 @@ class TicketmasterSpider(scrapy.Spider):
 
     def check_event_exists(self, conn, event_id):
         cursor = conn.cursor()
-        query = "SELECT id FROM events WHERE event_id = %s"
+        query = "SELECT id FROM events WHERE event_id = ?"
         cursor.execute(query, (event_id,))
         result = cursor.fetchone()
         cursor.close()
