@@ -22,19 +22,19 @@ def get_events():
     query = "SELECT * FROM events WHERE 1=1"
     params = []
 
-    if 'city' in filters:
+    if 'city' in filters and filters['city'] != '':
         query += " AND city LIKE %s"
         params.append(f"%{filters['city']}%")  # Adiciona % para busca parcial
-    if 'state' in filters:
+    if 'state' in filters and filters['state'] != '':
         query += " AND state LIKE %s"
         params.append(f"%{filters['state']}%")  # Adiciona % para busca parcial
-    if 'source' in filters:
+    if 'source' in filters and filters['source'] != '':
         query += " AND source LIKE %s"
         params.append(f"%{filters['source']}%")  # Adiciona % para busca parcial
-    if 'start_date' in filters:
+    if 'start_date' in filters and filters['start_date'] != '':
         query += " AND start_date >= %s"
         params.append(filters['start_date'])
-    if 'end_date' in filters:
+    if 'end_date' in filters and filters['end_date'] != '':
         query += " AND end_date <= %s"
         params.append(filters['end_date'])
 
