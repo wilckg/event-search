@@ -1,16 +1,28 @@
-import sqlite3
+import psycopg2
+from psycopg2 import sql
 
-# Função para conectar ao banco de dados SQLite
+# Função para conectar ao banco de dados PostgreSQL
 def connect_to_db():
-    conn = sqlite3.connect('projeto_integrador.db')
-    return conn
+    try:
+        # Conecta ao banco de dados PostgreSQL
+        conn = psycopg2.connect(
+            dbname="projeto_integrador_wg99",
+            user="projeto_integrador",
+            password="X1XeqRPEMUCAlF4AmWSYviFGclSQZ9tP",
+            host="dpg-cvcc60ij1k6c73c0o1jg-a",
+            port="5432"
+        )
+        return conn
+    except psycopg2.Error as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        return None
 
 # Função para criar a tabela (executa apenas na primeira vez)
 def create_table(conn):
     cursor = conn.cursor()
     query = """
     CREATE TABLE IF NOT EXISTS events (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id SERIAL PRIMARY KEY,
         title TEXT NOT NULL,
         event_id TEXT UNIQUE,
         event_type TEXT,
@@ -37,10 +49,11 @@ def create_table(conn):
 def insert_event(conn, event):
     cursor = conn.cursor()
     query = """
-    INSERT OR IGNORE INTO events (
+    INSERT INTO events (
         title, event_id, event_type, url, start_date, end_date, place_name, address, city, state, 
         image_url, image_thumb_url, synopsis, duration, purchase_url, source
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (event_id) DO NOTHING
     """
     cursor.execute(query, (
         event['title'], event['event_id'], event['event_type'], event['url'], event['start_date'],
