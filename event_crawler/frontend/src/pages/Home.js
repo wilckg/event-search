@@ -10,9 +10,13 @@ const Home = () => {
     const [events, setEvents] = useState([]);
     const [filters, setFilters] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10); // Valor padrão de itens por página
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [totalPages, setTotalPages] = useState(1);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchEvents = async (filters = {}, page = 1, limit = itemsPerPage) => {
+        setIsLoading(true);
         try {
             const response = await axios.get(`${API_URL}/events`, {
                 params: {
@@ -22,8 +26,13 @@ const Home = () => {
                 },
             });
             setEvents(response.data.events);
+            setTotalPages(response.data.pagination.total_pages);
+            setError(null);
         } catch (error) {
             console.error('Erro ao buscar eventos:', error);
+            setError("Erro ao carregar eventos. Tente novamente mais tarde.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -31,17 +40,16 @@ const Home = () => {
         fetchEvents(filters, currentPage, itemsPerPage);
     }, [currentPage, itemsPerPage, filters]);
 
-
     const handleFilter = (filters) => {
         setFilters(filters);
-        setCurrentPage(1); // Resetar para a primeira página ao aplicar novos filtros
+        setCurrentPage(1);
         fetchEvents(filters, 1, itemsPerPage);
     };
 
     const handleItemsPerPageChange = (event) => {
         const newItemsPerPage = parseInt(event.target.value, 10);
         setItemsPerPage(newItemsPerPage);
-        setCurrentPage(1); // Resetar para a primeira página ao alterar a quantidade de itens por página
+        setCurrentPage(1);
         fetchEvents(filters, 1, newItemsPerPage);
     };
 
@@ -49,7 +57,6 @@ const Home = () => {
         <div className="container">
             <h1 className="my-4">Eventos</h1>
             <FilterForm onFilter={handleFilter} />
-
 
             <div className="mb-3">
                 <label htmlFor="itemsPerPage">Itens por página:</label>
@@ -65,11 +72,25 @@ const Home = () => {
                 </select>
             </div>
 
-            <div className="card-grid">
-                {events.map((event) => (
-                    <EventCard key={event.id} event={event} />
-                ))}
-            </div>
+            {error && <div className="alert alert-danger">{error}</div>}
+
+            {isLoading ? (
+                <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Carregando...</span>
+                    </div>
+                </div>
+            ) : (
+                events.length > 0 ? (
+                    <div className="card-grid">
+                        {events.map((event) => (
+                            <EventCard key={event.id} event={event} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="alert alert-info">Nenhum evento encontrado.</div>
+                )
+            )}
 
             <div className="pagination">
                 <button
@@ -78,15 +99,14 @@ const Home = () => {
                 >
                     Anterior
                 </button>
-                <span>Página {currentPage}</span>
+                <span>Página {currentPage} de {totalPages}</span>
                 <button
                     onClick={() => setCurrentPage((prev) => prev + 1)}
-                    disabled={events.length < itemsPerPage}
+                    disabled={currentPage >= totalPages}
                 >
                     Próxima
                 </button>
             </div>
-
         </div>
     );
 };

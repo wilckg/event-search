@@ -17,16 +17,57 @@ def get_events():
     page = int(request.args.get('page', 1))  # Página atual (padrão: 1)
     per_page = int(request.args.get('per_page', 10))  # Itens por página (padrão: 10)
 
-    cursor = conn.cursor()
+    # Filtros
+    filters = request.args.to_dict()
+    query = "SELECT * FROM events WHERE 1=1"
+    params = []
 
-    # Consulta SQL com paginação
+    if 'city' in filters:
+        query += " AND city = %s"
+        params.append(filters['city'])
+    if 'state' in filters:
+        query += " AND state = %s"
+        params.append(filters['state'])
+    if 'source' in filters:
+        query += " AND source = %s"
+        params.append(filters['source'])
+    if 'start_date' in filters:
+        query += " AND start_date >= %s"
+        params.append(filters['start_date'])
+    if 'end_date' in filters:
+        query += " AND end_date <= %s"
+        params.append(filters['end_date'])
+
+    # Paginação
     offset = (page - 1) * per_page
-    query = "SELECT * FROM events LIMIT %s OFFSET %s"
-    cursor.execute(query, (per_page, offset))
+    query += " LIMIT %s OFFSET %s"
+    params.extend([per_page, offset])
+
+    cursor = conn.cursor()
+    cursor.execute(query, params)
     events_data = cursor.fetchall()
 
     # Contar o total de eventos (para calcular o total de páginas)
-    cursor.execute("SELECT COUNT(*) as total FROM events")
+    count_query = "SELECT COUNT(*) as total FROM events WHERE 1=1"
+    count_params = []
+
+    if 'city' in filters:
+        count_query += " AND city = %s"
+        count_params.append(filters['city'])
+    if 'state' in filters:
+        count_query += " AND state = %s"
+        count_params.append(filters['state'])
+    if 'source' in filters:
+        count_query += " AND source = %s"
+        count_params.append(filters['source'])
+    if 'start_date' in filters:
+        count_query += " AND start_date >= %s"
+        count_params.append(filters['start_date'])
+    if 'end_date' in filters:
+        count_query += " AND end_date <= %s"
+        count_params.append(filters['end_date'])
+
+    cursor.execute(count_query, count_params)
     total_events = cursor.fetchone()['total']
 
     cursor.close()
@@ -56,11 +97,7 @@ def get_events():
         ) for event in events_data
     ]
 
-    # Aplicar filtros (se necessário)
-    filters = request.args.to_dict()
-    filtered_events = apply_filters(events, filters)
-
-    # Converter os eventos filtrados em JSON
+    # Converter os eventos em JSON
     events_json = [
         {
             "id": event.id,
@@ -81,7 +118,7 @@ def get_events():
             "duration": event.duration,
             "purchase_url": event.purchase_url,
             "source": event.source
-        } for event in filtered_events
+        } for event in events
     ]
 
     # Calcular o total de páginas
