@@ -15,14 +15,14 @@ const Home = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const fetchEvents = async (filters = {}, page = 1, limit = itemsPerPage) => {
+    const fetchEvents = async (filters = {}, page = 1, per_page = itemsPerPage) => {
         setIsLoading(true);
         try {
             const response = await axios.get(`${API_URL}/events`, {
                 params: {
                     ...filters,
                     page,
-                    limit,
+                    per_page,
                 },
             });
             console.log("Eventos recebidos:", response.data.events); // Depuração
