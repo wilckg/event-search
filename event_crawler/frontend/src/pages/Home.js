@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EventCard from '../components/EventCard';
 import FilterForm from '../components/FilterForm';
+import EventCarousel from '../components/EventCarousel';
 import './Home.css';
 
 const API_URL = "https://event-search-iqm2.onrender.com";
@@ -73,6 +74,10 @@ const Home = () => {
                     <option value={20}>20</option>
                     <option value={50}>50</option>
                 </select>
+            </div>
+
+            <div className="mb-3">
+                <EventCarousel />
             </div>
 
             {error && <div className="alert alert-danger">{error}</div>}
