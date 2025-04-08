@@ -90,22 +90,20 @@ const EventCarousel = () => {
     <div className="carousel-wrapper">
       <div className="event-carousel-sympla">
         <Swiper
-          // ref={swiperRef}
           effect={"coverflow"}
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={"auto"}
-          initialSlide={Math.floor(events.length / 2)} // Começa no slide do meio
+          initialSlide={Math.floor(events.length / 2)}
           autoplay={{
-            delay: 3000, // Troca de slide a cada 3 segundos
-            disableOnInteraction: false, // Continua após interação do usuário
-            pauseOnMouseEnter: true, // Pausa quando o mouse está sobre o carrossel
-            waitForTransition: true, // Espera a transição terminar
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
           }}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 300,
+            depth: 200,
             modifier: 1,
             slideShadows: true,
           }}
@@ -113,14 +111,21 @@ const EventCarousel = () => {
             clickable: true,
             el: ".custom-pagination",
           }}
-          // navigation={{
-          //   nextEl: ".custom-next",
-          //   prevEl: ".custom-prev",
-          // }}
+          navigation={{
+            nextEl: ".custom-next",
+            prevEl: ".custom-prev",
+          }}
           modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
           className="mySwiper"
           loop={true}
-          speed={500}
+          speed={600}
+          breakpoints={{
+            640: {
+              coverflowEffect: {
+                depth: 100
+              }
+            }
+          }}
         >
           {events.map((event) => (
             <SwiperSlide key={event.id}>
@@ -180,27 +185,17 @@ const EventCarousel = () => {
         </Swiper>
         <div className="custom-navigation">
           <div className="custom-prev">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-            >
-              <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
             </svg>
           </div>
-          <div className="custom-pagination"></div>
           <div className="custom-next">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-            >
-              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
             </svg>
           </div>
         </div>
+        <div className="custom-pagination"></div>
       </div>
     </div>
   );
