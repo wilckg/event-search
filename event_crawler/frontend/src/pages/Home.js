@@ -3,7 +3,7 @@ import axios from 'axios';
 import EventCard from '../components/EventCard';
 import FilterForm from '../components/FilterForm';
 import EventCarousel from '../components/EventCarousel';
-import logo from '../assets/logo-parnacultura.png';
+import logo from '../assets/logo-parnacultura2.png';
 import './Home.css';
 
 const API_URL = "https://event-search-iqm2.onrender.com";
