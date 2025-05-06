@@ -2,7 +2,7 @@
 .carousel-wrapper {
   width: 100%;
   padding: 60px 0;
-  background: #fff;
+  background-color: transparent;
   position: relative;
   overflow: hidden;
 }
