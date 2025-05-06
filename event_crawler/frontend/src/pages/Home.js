@@ -59,7 +59,13 @@ const Home = () => {
 
     return (
         <div className="container">
-            <h1 className="my-4">Eventos</h1>
+            <div className="logo-container">
+                <img
+                    src="../assets/logo-parnacultura.png"
+                    alt="ParnaCultura Logo"
+                    className="logo"
+                />
+            </div>
             <FilterForm onFilter={handleFilter} />
 
             <div className="mb-3">

@@ -38,6 +38,16 @@ body::before {
     pointer-events: none;
 }
 
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    max-width: 300px;
+    height: auto;
+  }  
+
 .container {
     background-color: transparent; /* ou transparente se preferir */
     padding: 20px;
