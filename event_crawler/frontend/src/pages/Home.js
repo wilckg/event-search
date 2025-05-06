@@ -3,6 +3,7 @@ import axios from 'axios';
 import EventCard from '../components/EventCard';
 import FilterForm from '../components/FilterForm';
 import EventCarousel from '../components/EventCarousel';
+import logo from '../assets/logo-parnacultura.png';
 import './Home.css';
 
 const API_URL = "https://event-search-iqm2.onrender.com";
@@ -61,7 +62,7 @@ const Home = () => {
         <div className="container">
             <div className="logo-container">
                 <img
-                    src="../assets/logo-parnacultura.png"
+                    src={logo}
                     alt="ParnaCultura Logo"
                     className="logo"
                 />
