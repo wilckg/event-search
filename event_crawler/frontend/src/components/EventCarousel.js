@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   EffectCoverflow,
@@ -14,9 +14,6 @@ import "swiper/css/autoplay";
 import "./EventCarousel.css";
 
 const EventCarousel = () => {
-  // const swiperRef = useRef(null);;
-
-  // Dados dos eventos simulando a API do Sympla
   const events = [
     {
       id: 1,
@@ -102,8 +99,8 @@ const EventCarousel = () => {
           }}
           coverflowEffect={{
             rotate: 0,
-            stretch: 0,
-            depth: 200,
+            stretch: 100,
+            depth: 300,
             modifier: 1,
             slideShadows: true,
           }}
@@ -119,17 +116,10 @@ const EventCarousel = () => {
           className="mySwiper"
           loop={true}
           speed={600}
-          breakpoints={{
-            640: {
-              coverflowEffect: {
-                depth: 100
-              }
-            }
-          }}
         >
           {events.map((event) => (
             <SwiperSlide key={event.id}>
-              <a href={event.link} className="sympla-card">
+              <a href={event.link} className="sympla-card" target="_blank" rel="noopener noreferrer">
                 <div
                   className="event-image"
                   style={{ backgroundImage: `url(${event.image})` }}
@@ -137,46 +127,8 @@ const EventCarousel = () => {
                 <div className="event-info">
                   <h3 className="event-title">{event.title}</h3>
                   <div className="event-meta">
-                    <span className="event-location">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        width="1em"
-                        height="1em"
-                      >
-                        <path
-                          fill="currentColor"
-                          fillRule="evenodd"
-                          d="M4 9.92a8 8 0 1 1 16 0c0 5.48-7 11.58-7.35 11.84a1 1 0 0 1-1.3 0C11.05 21.5 4 15.4 4 9.92m8 9.73c-1.68-1.59-6-6-6-9.73a6 6 0 1 1 12 0c0 3.69-4.32 8.14-6 9.73M8.5 9.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0m2 0a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0"
-                          clipRule="evenodd"
-                        ></path>
-                      </svg>
-                      {event.location}
-                    </span>
-                    <span className="event-date">
-                      <svg
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clipPath="url(#a)">
-                          <path
-                            d="M17.5 8.334h-15m10.833-6.667V5M6.667 1.667V5M6.5 18.334h7c1.4 0 2.1 0 2.635-.273a2.5 2.5 0 0 0 1.092-1.092c.273-.535.273-1.235.273-2.635v-7c0-1.4 0-2.1-.273-2.635a2.5 2.5 0 0 0-1.092-1.093c-.535-.272-1.235-.272-2.635-.272h-7c-1.4 0-2.1 0-2.635.272A2.5 2.5 0 0 0 2.772 4.7C2.5 5.233 2.5 5.934 2.5 7.334v7c0 1.4 0 2.1.272 2.635a2.5 2.5 0 0 0 1.093 1.092c.535.273 1.235.273 2.635.273Z"
-                            stroke="#717680"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          ></path>
-                        </g>
-                        <defs>
-                          <clipPath id="a">
-                            <path fill="#fff" d="M0 0h20v20H0z"></path>
-                          </clipPath>
-                        </defs>
-                      </svg>
-                      {event.date}
-                    </span>
+                    <span className="event-location">{event.location}</span>
+                    <span className="event-date">{event.date}</span>
                   </div>
                 </div>
               </a>
