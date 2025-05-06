@@ -34,8 +34,7 @@ const EventCarousel = () => {
     {
       id: 3,
       title: "MENINAS MALVADAS - O MUSICAL",
-      image:
-        "https://assets.bileto.sympla.com.br/eventmanager/production/3rp5jr60snpsbhp8cmcvltsdrv3gmdimk32c02ib1kvq0jve0bscoo3ek1cqhmcg7285c7t5djij5vj5fo0ka7vk859a6gmb8jgn1se.webp",
+      image: "https://assets.bileto.sympla.com.br/eventmanager/production/3rp5jr60snpsbhp8cmcvltsdrv3gmdimk32c02ib1kvq0jve0bscoo3ek1cqhmcg7285c7t5djij5vj5fo0ka7vk859a6gmb8jgn1se.webp",
       location: "Rio de Janeiro - RJ",
       date: "Sábado, 15h",
       link: "https://bileto.sympla.com.br/event/99009",
@@ -51,8 +50,7 @@ const EventCarousel = () => {
     {
       id: 5,
       title: "Victor Sarro em Goiânia/GO - Na Minha Época Não Era Bullying",
-      image:
-        "https://assets.bileto.sympla.com.br/eventmanager/production/3keh2enop5cpkh5q9p71g8odh4mu2ansqrgro3u6bp6fckipsfsahnfqf463iv90ltqagms9c13n2os9dh2nf2ta395nskbi4gndj1f.webp",
+      image: "https://assets.bileto.sympla.com.br/eventmanager/production/3keh2enop5cpkh5q9p71g8odh4mu2ansqrgro3u6bp6fckipsfsahnfqf463iv90ltqagms9c13n2os9dh2nf2ta395nskbi4gndj1f.webp",
       location: "Goiânia - GO",
       date: "Sexta, 20h",
       link: "https://bileto.sympla.com.br/event/102581",
@@ -99,8 +97,8 @@ const EventCarousel = () => {
           }}
           coverflowEffect={{
             rotate: 0,
-            stretch: 100,
-            depth: 300,
+            stretch: 0,
+            depth: 200,
             modifier: 1,
             slideShadows: true,
           }}
@@ -120,15 +118,18 @@ const EventCarousel = () => {
           {events.map((event) => (
             <SwiperSlide key={event.id}>
               <a href={event.link} className="sympla-card" target="_blank" rel="noopener noreferrer">
-                <div
-                  className="event-image"
-                  style={{ backgroundImage: `url(${event.image})` }}
-                ></div>
-                <div className="event-info">
-                  <h3 className="event-title">{event.title}</h3>
-                  <div className="event-meta">
-                    <span className="event-location">{event.location}</span>
-                    <span className="event-date">{event.date}</span>
+                <div className="sympla-card-inner">
+                  <div
+                    className="sympla-card-image"
+                    style={{ backgroundImage: `url(${event.image})` }}
+                  ></div>
+                  <div className="sympla-card-content">
+                    <h3 className="sympla-card-title">{event.title}</h3>
+                    <div className="sympla-card-meta">
+                      <span>{event.date}</span>
+                      <span>•</span>
+                      <span>{event.location}</span>
+                    </div>
                   </div>
                 </div>
               </a>
@@ -138,12 +139,12 @@ const EventCarousel = () => {
         <div className="custom-navigation">
           <div className="custom-prev">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+              <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
             </svg>
           </div>
           <div className="custom-next">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
             </svg>
           </div>
         </div>
